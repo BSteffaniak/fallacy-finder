@@ -17,6 +17,7 @@ export function parseWordMatcher(expr: string): WordMatcher {
 
   // const entry: [keyof typeof WordType, string] | undefined = entries.find(e => e[1] === expr);
 
+  console.log(expr)
   const entry = getEnumValueFromString(WordType, expr) as WordType;
 
   if (!entry) {
@@ -47,7 +48,7 @@ export function parseWordMatcher(expr: string): WordMatcher {
     }
 
     if (expr.endsWith('*?')) {
-      const innerWordMatcher = parseWordMatcher(expr.substr(0, expr.length - 1));
+      const innerWordMatcher = parseWordMatcher(expr.substr(0, expr.length - 2));
       const wordMatcher = new MaybeMultipleNonGreedyWordMatcher(innerWordMatcher);
 
       return wordMatcher;

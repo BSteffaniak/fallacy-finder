@@ -37,7 +37,7 @@ export function wordMatchersMatchSequentially(wordMatchers: WordMatcher[], words
           if (wi === lastIndex + 1 && isWordMatch(word, matcher)) {
             // if this word can be matched by next matcher and we already have matched
             // something with this current matcher, then stop because we are not greedy.
-            if (lastIndex === startIndex || !isWordMatch(word, nextMatcher)) {
+            if (lastIndex === startIndex || nextMatcher && !isWordMatch(word, nextMatcher)) {
               lastIndex = wi;
             }
           }
@@ -85,5 +85,5 @@ export function isMatch(sentence: Sentence, expression: string): boolean {
 
   const wordMatchers = matchers.map(m => parseWordMatcher(m));
 
-  return wordMatchersMatchSequentially(wordMatchers, sentence.words!);
+  return wordMatchersMatchSequentially(wordMatchers, sentence.words);
 }
