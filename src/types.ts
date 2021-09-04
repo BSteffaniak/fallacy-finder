@@ -30,6 +30,20 @@ export class BasicWordMatcher extends WordMatcher {
   }
 }
 
+export class MaybeMultipleWordMatcher extends WordMatcher {
+
+  constructor(public matcher: WordMatcher) {
+    super();
+  }
+}
+
+export class MaybeMultipleNonGreedyWordMatcher extends WordMatcher {
+
+  constructor(public matcher: WordMatcher) {
+    super();
+  }
+}
+
 export class OrWordMatcher extends WordMatcher {
   matchers: WordMatcher[];
 
@@ -52,6 +66,7 @@ export class Sentence {
 
 export class Word {
   type?: WordType;
+  classifier?: WordTypeClassifier;
 
   constructor(
     public readonly rawText: string
