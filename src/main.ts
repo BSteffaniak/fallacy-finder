@@ -20,8 +20,8 @@ const PATTERNS = [
 
   const sentences = input
     .split(/\./g)
-    .filter(s => s.length > 0)
     .map(s => s.trim())
+    .filter(s => s.length > 0)
     .map(s => parseSentence(s));
 
   sentences.forEach((sentence) => {
