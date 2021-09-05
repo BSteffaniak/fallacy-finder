@@ -1,5 +1,9 @@
 import { initVerbs } from './word-parser.ts';
 
+let jsonVerbs: {[verb: string]: boolean};
+
 export async function initDictionaryFromJson() {
-  initVerbs(JSON.parse(await Deno.readTextFile('./res/verbs.json')));
+  jsonVerbs = jsonVerbs || JSON.parse(await Deno.readTextFile('./res/verbs.json'));
+
+  initVerbs(jsonVerbs);
 }
