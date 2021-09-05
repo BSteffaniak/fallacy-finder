@@ -4,7 +4,7 @@ import { isMatch } from "./matcher.ts";
 import { parseSentence } from "./word-parser.ts";
 
 Deno.test({
-  name: "isMatch | matches N*? correctly",
+  name: `isMatch | matches "N*?" correctly`,
   fn: async () => {
     await initDictionaryFromJson();
 
@@ -16,7 +16,7 @@ Deno.test({
 });
 
 Deno.test({
-  name: "isMatch | matches N V N correctly",
+  name: `isMatch | matches "N V N" correctly`,
   fn: async () => {
     await initDictionaryFromJson();
 
@@ -28,7 +28,7 @@ Deno.test({
 });
 
 Deno.test({
-  name: "isMatch | matches N*? V N correctly",
+  name: `isMatch | matches "N*? V N" correctly`,
   fn: async () => {
     await initDictionaryFromJson();
 
@@ -40,7 +40,7 @@ Deno.test({
 });
 
 Deno.test({
-  name: "isMatch | matches N V N*? correctly",
+  name: `isMatch | matches "N V N*?" correctly`,
   fn: async () => {
     await initDictionaryFromJson();
 
@@ -52,7 +52,7 @@ Deno.test({
 });
 
 Deno.test({
-  name: "isMatch | matches N V*? N correctly",
+  name: `isMatch | matches "N V*? N" correctly`,
   fn: async () => {
     await initDictionaryFromJson();
 
@@ -64,7 +64,7 @@ Deno.test({
 });
 
 Deno.test({
-  name: "isMatch | matches N*? V*? N*? correctly",
+  name: `isMatch | matches "N*? V*? N*?" correctly`,
   fn: async () => {
     await initDictionaryFromJson();
 
@@ -76,7 +76,7 @@ Deno.test({
 });
 
 Deno.test({
-  name: "isMatch | matches N*? V N*? correctly",
+  name: `isMatch | matches "N*? V N*?" correctly`,
   fn: async () => {
     await initDictionaryFromJson();
 
@@ -88,7 +88,7 @@ Deno.test({
 });
 
 Deno.test({
-  name: "isMatch | matches N V*? N*? correctly",
+  name: `isMatch | matches "N V*? N*?" correctly`,
   fn: async () => {
     await initDictionaryFromJson();
 
@@ -100,7 +100,7 @@ Deno.test({
 });
 
 Deno.test({
-  name: "isMatch | matches N*? V*? N correctly",
+  name: `isMatch | matches "N*? V*? N" correctly`,
   fn: async () => {
     await initDictionaryFromJson();
 
@@ -115,7 +115,7 @@ Deno.test({
 
 
 Deno.test({
-  name: "isMatch | matches N* correctly",
+  name: `isMatch | matches "N*" correctly`,
   fn: async () => {
     await initDictionaryFromJson();
 
@@ -128,7 +128,7 @@ Deno.test({
 });
 
 Deno.test({
-  name: "isMatch | matches N* V N correctly",
+  name: `isMatch | matches "N* V N" correctly`,
   fn: async () => {
     await initDictionaryFromJson();
 
@@ -140,7 +140,7 @@ Deno.test({
 });
 
 Deno.test({
-  name: "isMatch | matches N V N* correctly",
+  name: `isMatch | matches "N V N*" correctly`,
   fn: async () => {
     await initDictionaryFromJson();
 
@@ -152,7 +152,7 @@ Deno.test({
 });
 
 Deno.test({
-  name: "isMatch | matches N V* N correctly",
+  name: `isMatch | matches "N V* N" correctly`,
   fn: async () => {
     await initDictionaryFromJson();
 
@@ -164,7 +164,7 @@ Deno.test({
 });
 
 Deno.test({
-  name: "isMatch | matches N* V* N* correctly",
+  name: `isMatch | matches "N* V* N*" correctly`,
   fn: async () => {
     await initDictionaryFromJson();
 
@@ -176,7 +176,7 @@ Deno.test({
 });
 
 Deno.test({
-  name: "isMatch | matches N* V N* correctly",
+  name: `isMatch | matches "N* V N*" correctly`,
   fn: async () => {
     await initDictionaryFromJson();
 
@@ -188,7 +188,7 @@ Deno.test({
 });
 
 Deno.test({
-  name: "isMatch | matches N V* N* correctly",
+  name: `isMatch | matches "N V* N*" correctly`,
   fn: async () => {
     await initDictionaryFromJson();
 
@@ -200,12 +200,24 @@ Deno.test({
 });
 
 Deno.test({
-  name: "isMatch | matches N* V* N correctly",
+  name: `isMatch | matches "N* V* N" correctly`,
   fn: async () => {
     await initDictionaryFromJson();
 
     const sentence = parseSentence("one goes three");
     const result = isMatch(sentence, "N* V* N");
+    
+    assertEquals(result, true);
+  }
+});
+
+Deno.test({
+  name: `isMatch | matches "N*? N:UNI|N:UNINEG N" correctly`,
+  fn: async () => {
+    await initDictionaryFromJson();
+
+    const sentence = parseSentence(`The word "master" is always racist.`);
+    const result = isMatch(sentence, "N*? N:UNI|N:UNINEG N");
     
     assertEquals(result, true);
   }
