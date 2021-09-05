@@ -24,54 +24,81 @@ export function isWordMatch(word: Word, matcher: WordMatcher): boolean {
   }
 }
 
+class WordMatcherStateMachine {
+  lastIndex = -1;
+
+  constructor(
+    private readonly wordMatchers: WordMatcher[],
+    private readonly words: Word[]
+  ) {
+
+  }
+
+  matchMaybeMultipleNonGreedyWordMatcher(
+    matcher: WordMatcher,
+    i: number
+  ): boolean {
+    const startIndex = this.lastIndex;
+    const nextMatcher = this.wordMatchers[i + 1];
+
+    this.words.forEach((word, wi) => {
+      if (wi === this.lastIndex + 1 && isWordMatch(word, matcher)) {
+        // if this word can be matched by next matcher and we already have matched
+        // something with this current matcher, then stop because we are not greedy.
+        if (this.lastIndex === startIndex || nextMatcher && !isWordMatch(word, nextMatcher)) {
+          this.lastIndex = wi;
+        }
+      }
+    });
+
+    return startIndex !== this.lastIndex;
+  }
+
+  matchMaybeMultipleWordMatcher(
+    matcher: WordMatcher
+  ): boolean {
+    const startIndex = this.lastIndex;
+
+    this.words.forEach((word, wi) => {
+      if (wi === this.lastIndex + 1 && isWordMatch(word, matcher)) {
+        this.lastIndex = wi;
+      }
+    });
+
+    return startIndex !== this.lastIndex;
+  }
+
+  matchBasicWordMatcher(
+    matcher: WordMatcher
+  ): boolean {
+    const findIndex = this.words.findIndex((word, wi) => {
+      return wi === this.lastIndex + 1 && isWordMatch(word, matcher);
+    });
+
+    if (findIndex === -1) {
+      return false;
+    }
+    if (findIndex > this.lastIndex + 1) {
+      return false;
+    }
+
+    this.lastIndex = findIndex;
+
+    return true;
+  }
+}
+
 export function wordMatchersMatchSequentially(wordMatchers: WordMatcher[], words: Word[]): boolean {
-  let lastIndex = -1;
+  const state = new WordMatcherStateMachine(wordMatchers, words);
 
-  return wordMatchers.every((matcher, i, matchers) => {
+  return wordMatchers.every((matcher, i) => {
     switch (matcher.constructor) {
-      case MaybeMultipleNonGreedyWordMatcher: {
-        const startIndex = lastIndex;
-        const nextMatcher = matchers[i + 1];
-
-        words.forEach((word, wi) => {
-          if (wi === lastIndex + 1 && isWordMatch(word, matcher)) {
-            // if this word can be matched by next matcher and we already have matched
-            // something with this current matcher, then stop because we are not greedy.
-            if (lastIndex === startIndex || nextMatcher && !isWordMatch(word, nextMatcher)) {
-              lastIndex = wi;
-            }
-          }
-        });
-
-        return startIndex !== lastIndex;
-      }
-      case MaybeMultipleWordMatcher: {
-        const startIndex = lastIndex;
-
-        words.forEach((word, wi) => {
-          if (wi === lastIndex + 1 && isWordMatch(word, matcher)) {
-            lastIndex = wi;
-          }
-        });
-
-        return startIndex !== lastIndex;
-      }
-      default: {
-        const findIndex = words.findIndex((word, wi) => {
-          return wi === lastIndex + 1 && isWordMatch(word, matcher);
-        });
-
-        if (findIndex === -1) {
-          return false;
-        }
-        if (findIndex > lastIndex + 1) {
-          return false;
-        }
-
-        lastIndex = findIndex;
-
-        return true;
-      }
+      case MaybeMultipleNonGreedyWordMatcher:
+        return state.matchMaybeMultipleNonGreedyWordMatcher(matcher, i);
+      case MaybeMultipleWordMatcher:
+        return state.matchMaybeMultipleWordMatcher(matcher);
+      default:
+        return state.matchBasicWordMatcher(matcher);
     }
   });
 }
