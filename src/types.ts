@@ -74,3 +74,12 @@ export class Word {
 
   }
 }
+
+export class Pattern {
+  constructor(
+    public readonly name: string,
+    public readonly pattern: string
+  ) {
+
+  }
+}

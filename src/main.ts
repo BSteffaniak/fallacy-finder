@@ -1,5 +1,6 @@
 import { initDictionaryFromJson } from "./dictionary.ts";
 import { isMatch } from "./matcher.ts";
+import { Pattern } from "./types.ts";
 import { parseSentence } from "./word-parser.ts";
 
 const input = Deno.args[0];
@@ -10,8 +11,8 @@ if (!input) {
 }
 
 const PATTERNS = [
-  "N*? N:UNI|N:UNINEG N",
-  "N*? V"
+  new Pattern("Pattern 1", "N*? N:UNI|N:UNINEG N"),
+  new Pattern("Pattern 2", "N*? V")
 ];
 
 (async () => {
@@ -27,7 +28,7 @@ const PATTERNS = [
     console.log(sentence);
 
     PATTERNS.forEach((pattern) => {
-      console.log(pattern, isMatch(sentence, pattern));
+      console.log(pattern.name, isMatch(sentence, pattern.pattern));
     });
   });
 })();
