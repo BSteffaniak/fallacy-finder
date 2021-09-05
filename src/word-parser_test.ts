@@ -1,6 +1,6 @@
 import { assertEquals, fail, AssertionError } from "https://deno.land/std@0.106.0/testing/asserts.ts";
-import { Word, WordType } from "./types.ts";
-import { parseWord, initVerbs } from "./word-parser.ts";
+import { Sentence, SentenceType, Word, WordType } from "./types.ts";
+import { parseWord, initVerbs, parseWordType } from "./word-parser.ts";
 import { initDictionary } from './test-utils_test.ts';
 
 Deno.test({
@@ -8,10 +8,17 @@ Deno.test({
   fn: async () => {
     await initDictionary();
 
-    const result = parseWord("hey");
+    const sentence = new Sentence("hey.", SentenceType.DECLARATION);
+    const result = parseWord("hey", sentence);
+    sentence.words = [result];
     const expected = new Word("hey");
-    expected.type = WordType.NOUN;
     
+    assertEquals(result, expected);
+
+    // Second pass on word type parsing now that we have initialized the sentence
+    parseWordType(result, sentence);
+    expected.type = WordType.NOUN;
+
     assertEquals(result, expected);
   }
 });
