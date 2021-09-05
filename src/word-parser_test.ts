@@ -12,7 +12,7 @@ Deno.test({
     const result = parseWord("hey", sentence);
     sentence.words = [result];
     const expected = new Word("hey");
-    
+
     assertEquals(result, expected);
 
     // Second pass on word type parsing now that we have initialized the sentence

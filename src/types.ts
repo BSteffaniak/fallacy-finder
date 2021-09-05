@@ -59,7 +59,7 @@ export class Sentence {
     public readonly rawText: string,
     public readonly type: SentenceType
   ) {
-    
+
   }
 }
 

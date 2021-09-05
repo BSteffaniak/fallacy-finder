@@ -10,7 +10,7 @@ Deno.test({
 
     const sentence = parseSentence("one two three");
     const result = isMatch(sentence, "N*?");
-    
+
     assertEquals(result, true);
   }
 });
@@ -22,7 +22,7 @@ Deno.test({
 
     const sentence = parseSentence("one goes three");
     const result = isMatch(sentence, "N V N");
-    
+
     assertEquals(result, true);
   }
 });
@@ -34,7 +34,7 @@ Deno.test({
 
     const sentence = parseSentence("one goes three");
     const result = isMatch(sentence, "N*? V N");
-    
+
     assertEquals(result, true);
   }
 });
@@ -46,7 +46,7 @@ Deno.test({
 
     const sentence = parseSentence("one goes three");
     const result = isMatch(sentence, "N V N*?");
-    
+
     assertEquals(result, true);
   }
 });
@@ -58,7 +58,7 @@ Deno.test({
 
     const sentence = parseSentence("one goes three");
     const result = isMatch(sentence, "N V*? N");
-    
+
     assertEquals(result, true);
   }
 });
@@ -70,7 +70,7 @@ Deno.test({
 
     const sentence = parseSentence("one goes three");
     const result = isMatch(sentence, "N*? V*? N*?");
-    
+
     assertEquals(result, true);
   }
 });
@@ -82,7 +82,7 @@ Deno.test({
 
     const sentence = parseSentence("one goes three");
     const result = isMatch(sentence, "N*? V N*?");
-    
+
     assertEquals(result, true);
   }
 });
@@ -94,7 +94,7 @@ Deno.test({
 
     const sentence = parseSentence("one goes three");
     const result = isMatch(sentence, "N V*? N*?");
-    
+
     assertEquals(result, true);
   }
 });
@@ -106,7 +106,7 @@ Deno.test({
 
     const sentence = parseSentence("one goes three");
     const result = isMatch(sentence, "N*? V*? N");
-    
+
     assertEquals(result, true);
   }
 });
@@ -122,7 +122,7 @@ Deno.test({
     const sentence = parseSentence("one two three");
 
     const result = isMatch(sentence, "N*");
-    
+
     assertEquals(result, true);
   }
 });
@@ -134,7 +134,7 @@ Deno.test({
 
     const sentence = parseSentence("one goes three");
     const result = isMatch(sentence, "N* V N");
-    
+
     assertEquals(result, true);
   }
 });
@@ -146,7 +146,7 @@ Deno.test({
 
     const sentence = parseSentence("one goes three");
     const result = isMatch(sentence, "N V N*");
-    
+
     assertEquals(result, true);
   }
 });
@@ -158,7 +158,7 @@ Deno.test({
 
     const sentence = parseSentence("one goes three");
     const result = isMatch(sentence, "N V* N");
-    
+
     assertEquals(result, true);
   }
 });
@@ -170,7 +170,7 @@ Deno.test({
 
     const sentence = parseSentence("one goes three");
     const result = isMatch(sentence, "N* V* N*");
-    
+
     assertEquals(result, true);
   }
 });
@@ -182,7 +182,7 @@ Deno.test({
 
     const sentence = parseSentence("one goes three");
     const result = isMatch(sentence, "N* V N*");
-    
+
     assertEquals(result, true);
   }
 });
@@ -194,7 +194,7 @@ Deno.test({
 
     const sentence = parseSentence("one goes three");
     const result = isMatch(sentence, "N V* N*");
-    
+
     assertEquals(result, true);
   }
 });
@@ -206,7 +206,7 @@ Deno.test({
 
     const sentence = parseSentence("one goes three");
     const result = isMatch(sentence, "N* V* N");
-    
+
     assertEquals(result, true);
   }
 });
@@ -218,7 +218,7 @@ Deno.test({
 
     const sentence = parseSentence(`The word "master" is always racist.`);
     const result = isMatch(sentence, "N*? N:UNI|N:UNINEG N");
-    
+
     assertEquals(result, true);
   }
 });
@@ -230,7 +230,7 @@ Deno.test({
 
     const sentence = parseSentence(`Therefore, we must obliterate it.`);
     const result = isMatch(sentence, "N*? V");
-    
+
     assertEquals(result, true);
   }
 });

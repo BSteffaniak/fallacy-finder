@@ -42,7 +42,7 @@ export function wordMatchersMatchSequentially(wordMatchers: WordMatcher[], words
             }
           }
         });
-    
+
         return startIndex !== lastIndex;
       }
       case MaybeMultipleWordMatcher: {
@@ -53,23 +53,23 @@ export function wordMatchersMatchSequentially(wordMatchers: WordMatcher[], words
             lastIndex = wi;
           }
         });
-    
+
         return startIndex !== lastIndex;
       }
       default: {
         const findIndex = words.findIndex((word, wi) => {
           return wi === lastIndex + 1 && isWordMatch(word, matcher);
         });
-    
+
         if (findIndex === -1) {
           return false;
         }
         if (findIndex > lastIndex + 1) {
           return false;
         }
-    
+
         lastIndex = findIndex;
-    
+
         return true;
       }
     }

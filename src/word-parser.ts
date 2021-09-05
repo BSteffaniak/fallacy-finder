@@ -63,7 +63,7 @@ export function parseWordType(word: Word, sentence: Sentence): boolean {
   if (word.type) {
     return true;
   }
-  
+
   if (word.rawText.toLowerCase() in verbs) {
     word.type = WordType.VERB;
     return true;
