@@ -69,9 +69,6 @@ export function parseWordType(word: Word, sentence: Sentence): boolean {
     return true;
   }
 
-  const prevWord = getPrevWord(word, sentence);
-  const nextWord = getNextWord(word, sentence);
-
   if (sentence.words) {
     word.type = WordType.NOUN;
     return true;
@@ -80,7 +77,7 @@ export function parseWordType(word: Word, sentence: Sentence): boolean {
   return false;
 }
 
-export function parseWordClassifier(word: Word, sentence: Sentence): boolean {
+export function parseWordClassifier(word: Word, _sentence: Sentence): boolean {
   if (word.classifier) {
     return true;
   }
@@ -93,9 +90,6 @@ export function parseWordClassifier(word: Word, sentence: Sentence): boolean {
       word.classifier = WordTypeClassifier.UNIVERSAL_NEGATIVE
       return true;
   }
-
-  const prevWord = getPrevWord(word, sentence);
-  const nextWord = getNextWord(word, sentence);
 
   return false;
 }

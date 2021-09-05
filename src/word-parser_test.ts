@@ -1,6 +1,6 @@
-import { assertEquals, fail, AssertionError } from "https://deno.land/std@0.106.0/testing/asserts.ts";
+import { assertEquals } from "https://deno.land/std@0.106.0/testing/asserts.ts";
 import { Sentence, SentenceType, Word, WordType } from "./types.ts";
-import { parseWord, initVerbs, parseWordType } from "./word-parser.ts";
+import { parseWord, parseWordType } from "./word-parser.ts";
 import { initDictionary } from './test-utils_test.ts';
 
 Deno.test({

@@ -1,15 +1,15 @@
-import { WordMatcher,WordType,OrWordMatcher,BasicWordMatcher,WordTypeClassifier, MaybeMultipleWordMatcher, MaybeMultipleNonGreedyWordMatcher } from "./types.ts";
+import { WordMatcher, WordType, OrWordMatcher, BasicWordMatcher, WordTypeClassifier, MaybeMultipleWordMatcher, MaybeMultipleNonGreedyWordMatcher } from "./types.ts";
 
-function getEnumValueFromString<T>(enumType: T, expr: string): keyof T | undefined {
-  const entries: [keyof typeof enumType, string][] = Object.entries(enumType) as any;
+function getEnumValueFromString<T>(enumType: {[key: string]: string}, expr: string): string | undefined {
+  const entries: [string, string][] = Object.entries(enumType);
 
-  const entry: [keyof typeof enumType, string] | undefined = entries.find(e => e[1] === expr);
+  const entry: [string, string] | undefined = entries.find(e => e[1] === expr);
 
   if (!entry) {
     return;
   }
 
-  return enumType[entry[0]] as any as keyof T;
+  return enumType[entry[0]];
 }
 
 export function parseWordMatcher(expr: string): WordMatcher {

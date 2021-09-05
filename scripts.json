@@ -8,6 +8,10 @@
     "test": {
       "cmd": "deno test --allow-read",
       "desc": "run tests"
+    },
+    "lint": {
+      "cmd": "deno lint",
+      "desc": "run linter"
     }
   }
 }

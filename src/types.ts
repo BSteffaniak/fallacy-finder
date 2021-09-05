@@ -1,5 +1,3 @@
-import { parseWord, parseWords, parseWordType, parseWordTypes } from "./word-parser.ts";
-
 export enum SentenceType {
   DECLARATION, EXCLAMATION, QUESTION, SEMIDECLARATION
 }
