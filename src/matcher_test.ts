@@ -222,3 +222,15 @@ Deno.test({
     assertEquals(result, true);
   }
 });
+
+Deno.test({
+  name: `isMatch | matches "N*? V" correctly`,
+  fn: async () => {
+    await initDictionaryFromJson();
+
+    const sentence = parseSentence(`Therefore, we must obliterate it.`);
+    const result = isMatch(sentence, "N*? V");
+    
+    assertEquals(result, true);
+  }
+});
