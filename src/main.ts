@@ -10,7 +10,8 @@ const input = Deno.args[0] || `The word "master" is always racist. Therefore, we
   const sentences = input
     .split(/\./g)
     .filter(s => s.length > 0)
-    .map(s => parseSentence(s.trim()));
+    .map(s => s.trim())
+    .map(s => parseSentence(s));
 
   console.log(sentences, isMatch(sentences[0], "N*? N:UNI|N:UNINEG N"));
 })();
