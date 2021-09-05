@@ -1,10 +1,11 @@
+import { initDictionaryFromJson } from "./dictionary.ts";
 import { isMatch } from "./matcher.ts";
-import { initVerbs, parseSentence } from "./word-parser.ts";
+import { parseSentence } from "./word-parser.ts";
 
 const input = Deno.args[0] || `The word "master" is always racist. Therefore, we must obliterate it.`;
 
 (async () => {
-  initVerbs(JSON.parse(await Deno.readTextFile('./res/verbs.json')));
+  await initDictionaryFromJson();
 
   const sentences = input
     .split(/\./g)
