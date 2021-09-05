@@ -13,11 +13,6 @@ function getEnumValueFromString<T>(enumType: T, expr: string): keyof T | undefin
 }
 
 export function parseWordMatcher(expr: string): WordMatcher {
-  // const entries: [keyof typeof WordType, string][] = Object.entries(WordType) as any;
-
-  // const entry: [keyof typeof WordType, string] | undefined = entries.find(e => e[1] === expr);
-
-  console.log(expr)
   const entry = getEnumValueFromString(WordType, expr) as WordType;
 
   if (!entry) {
