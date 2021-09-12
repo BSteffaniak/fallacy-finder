@@ -1,10 +1,5 @@
+import { universalNegatives, universals, verbs } from "./dictionary.ts";
 import { Sentence, SentenceType, Word, WordType, WordTypeClassifier } from "./types.ts";
-
-let verbs: {[verb: string]: boolean};
-
-export function initVerbs(_verbs: {[verb: string]: boolean}) {
-  verbs = _verbs;
-}
 
 export function getPrevWord(word: Word, sentence: Sentence): Word | undefined {
   if (!sentence.words || word.index === 0) {
@@ -82,11 +77,11 @@ export function parseWordClassifier(word: Word, _sentence: Sentence): boolean {
     return true;
   }
 
-  switch (word.rawText.toLowerCase()) {
-    case 'always':
-      word.classifier = WordTypeClassifier.UNIVERSAL
+  if (word.rawText.toLowerCase() in universals) {
+      word.classifier = WordTypeClassifier.UNIVERSAL;
       return true;
-    case 'never':
+  }
+  if (word.rawText.toLowerCase() in universalNegatives) {
       word.classifier = WordTypeClassifier.UNIVERSAL_NEGATIVE
       return true;
   }
